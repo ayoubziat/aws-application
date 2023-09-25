@@ -1,0 +1,14 @@
+server:
+  port: 8081
+  error:
+    include-message: always
+spring:
+  application:
+    name: "Spring Boot Application for uploading files to AWS S3 buckets"
+  main:
+    web-application-type: servlet
+
+application:
+  aws:
+    access-key-id: ""
+    secret-access-key: ""
