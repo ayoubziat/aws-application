@@ -2,13 +2,11 @@ package com.springboot.awss3app.resource;
 
 import com.springboot.awss3app.model.User;
 import com.springboot.awss3app.service.UsersService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -16,7 +14,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("api/v1/users")
 @AllArgsConstructor
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class UsersController {
 
     final private UsersService usersService;
@@ -37,7 +35,7 @@ public class UsersController {
     )
     public void uploadUserImage(
             @PathVariable("userId") UUID userId,
-            @RequestParam("filePath") MultipartFile file
+            @RequestParam("file") MultipartFile file
     ) {
         this.usersService.uploadUserImage(userId, file);
     }
