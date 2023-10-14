@@ -24,6 +24,13 @@ public class UsersDataSourceMock implements AppDataSource {
 
     @Override
     public Optional<User> findById(UUID userId) {
-        return usersList.stream().filter(it -> it.getUserId().equals(userId)).findFirst();
+        return usersList
+                .stream()
+                .filter(it -> it.getUserId().equals(userId)).findFirst();
+    }
+
+    @Override
+    public Boolean existsById(UUID userId) {
+        return this.findById(userId).isPresent();
     }
 }

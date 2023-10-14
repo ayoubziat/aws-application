@@ -12,4 +12,6 @@ public interface AppDataSource {
     List<User> findAll();
 
     Optional<User> findById(UUID userId);
+
+    Boolean existsById(UUID userId);
 }

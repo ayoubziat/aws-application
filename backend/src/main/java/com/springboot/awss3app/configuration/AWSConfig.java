@@ -2,27 +2,25 @@ package com.springboot.awss3app.configuration;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.Data;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@Data
 public class AWSConfig {
 
-    @Value("${application.aws.access-key-id}")
-    private String awsAccessKey;
-
-    @Value("${application.aws.access-key-id}")
-    private String awsSecretKey;
+    private final AWSProperties awsProperties;
 
     @Bean
     public AmazonS3 createAmazonS3Client() {
-        AWSCredentials awsCredentials = new BasicAWSCredentials(
-                awsAccessKey,
-                awsSecretKey
+        AWSCredentials awsCredentials = new BasicSessionCredentials(
+                awsProperties.getAwsAccessKeyId(),
+                awsProperties.getAwsSecretAccessKey(),
+                awsProperties.getAwsSessionToken()
         );
 
         return AmazonS3ClientBuilder
