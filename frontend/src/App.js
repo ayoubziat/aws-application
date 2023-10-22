@@ -26,7 +26,13 @@ const Users = () => {
   return users.map((user, index) => {
     return (
       <div key={index}>
-
+        {
+          user.userId ? (
+            <img 
+              src={`http://localhost:8080/api/v1/users/${user.userId}/image/download`}
+            /> 
+          ) : null
+        }
         <br/>
         <br/>
         <h1>{user.username}</h1>
@@ -46,7 +52,7 @@ function Dropzone({ userId }) {
     formData.append("file", file);
 
     axios.post(
-      `http://localhost:8080/api/v1/users/${userId}/upload/image`, 
+      `http://localhost:8080/api/v1/users/${userId}/image/upload`, 
       formData,
       {
         headers: {

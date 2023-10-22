@@ -28,7 +28,7 @@ public class UsersController {
     }
 
     @PostMapping(
-            path = "{userId}/upload/image",
+            path = "{userId}/image/upload",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -37,6 +37,13 @@ public class UsersController {
             @RequestParam("file") MultipartFile file
     ) {
         this.usersService.uploadUserImage(userId, file);
+    }
+
+    @GetMapping(path = "{userId}/image/download")
+    public byte[] downloadUserImage(
+            @PathVariable("userId") UUID userId
+    ) {
+        return this.usersService.downloadUserImage(userId);
     }
 
     @ExceptionHandler(NoSuchElementException.class)

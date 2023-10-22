@@ -10,16 +10,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 //@Entity
 public class User {
 
 //    @Id
-    private UUID userId;
+    private final UUID userId;
 
-    private String username;
+    private final String username;
 
-    private String userImageLink;
+    private String userImageLink; // S3 key path
 
     public User(UUID userId, String username, String userImageLink) {
         this.userId = userId;
@@ -27,7 +27,7 @@ public class User {
         this.userImageLink = userImageLink;
     }
 
-    public Optional<String> getuserImageLink() {
+    public Optional<String> getUserImageLink() {
         return Optional.ofNullable(userImageLink);
     }
 

@@ -1,1 +1,1 @@
-# aws-s3-application
+# aws-application
