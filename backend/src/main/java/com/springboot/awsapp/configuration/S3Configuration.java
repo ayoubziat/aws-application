@@ -1,4 +1,4 @@
-package com.springboot.awss3app.s3;
+package com.springboot.awsapp.configuration;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

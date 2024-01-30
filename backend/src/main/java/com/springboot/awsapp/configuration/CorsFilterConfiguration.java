@@ -1,4 +1,4 @@
-package com.springboot.awss3app.configuration;
+package com.springboot.awsapp.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

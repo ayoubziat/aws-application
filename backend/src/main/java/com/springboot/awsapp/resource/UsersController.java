@@ -1,7 +1,7 @@
-package com.springboot.awss3app.resource;
+package com.springboot.awsapp.resource;
 
-import com.springboot.awss3app.model.User;
-import com.springboot.awss3app.service.UsersService;
+import com.springboot.awsapp.domain.entities.UserEntity;
+import com.springboot.awsapp.service.UsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +18,12 @@ public class UsersController {
 
     final private UsersService usersService;
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserEntity> getAllUsers() {
         return this.usersService.getAllUsers();
     }
 
     @GetMapping("{userId}")
-    public User getUser(@PathVariable("userId") UUID userId) {
+    public UserEntity getUser(@PathVariable("userId") UUID userId) {
         return this.usersService.getUserById(userId);
     }
 

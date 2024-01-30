@@ -3,7 +3,7 @@ server:
     include-message: always
 spring:
   application:
-    name: "Spring Boot Application for uploading & downloading files to/from AWS S3 buckets"
+    name: "Spring Boot Application using some AWS services"
   servlet:
     multipart:
       file-size-threshold: 1MB
@@ -16,3 +16,6 @@ application:
     region: ""
     s3:
       s3BucketName: ""
+    dynamodb:
+      endpoint: "https://dynamodb.eu-central-1.amazonaws.com"
+      tableName: ""
