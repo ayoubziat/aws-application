@@ -8,7 +8,5 @@ import org.springframework.stereotype.Component;
 @Data
 @ConfigurationProperties(prefix = "application.aws.s3")
 public class S3Configuration {
-
     private String s3BucketName;
-
 }

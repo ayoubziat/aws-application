@@ -31,7 +31,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     public UserEntity getUserById(UUID userId) {
-        return this.usersRepository.findById(userId).orElseThrow(
+        return this.usersRepository.findByUserId(userId).orElseThrow(
                 () -> new NoSuchElementException("User with ID '" + userId + "' could not be found")
         );
     }
@@ -46,7 +46,7 @@ public class UsersServiceImpl implements UsersService {
             throw new IllegalStateException("File must be an image. File type: " + file.getContentType());
 
         // Check if the user exists in DB
-        UserEntity userEntity = this.usersRepository.findById(userId).orElseThrow(
+        UserEntity userEntity = this.usersRepository.findByUserId(userId).orElseThrow(
                 () -> new NoSuchElementException("User with ID ("+ userId + ") does not exist")
         );
 
@@ -62,7 +62,7 @@ public class UsersServiceImpl implements UsersService {
 
     public byte[] downloadUserProfileImage(UUID userId) {
         // Check if the user exists in DB
-        UserEntity userEntity = this.usersRepository.findById(userId).orElseThrow(
+        UserEntity userEntity = this.usersRepository.findByUserId(userId).orElseThrow(
                 () -> new NoSuchElementException("User with ID ("+ userId + ") does not exist")
         );
 
@@ -75,8 +75,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public UserEntity addUser(UserEntity userEntity) {
-        if (userEntity.getUserId() == null)
-            userEntity.setUserId(UUID.randomUUID());
+        userEntity.setUserId(UUID.randomUUID());
         return this.usersRepository.save(userEntity);
     }
 

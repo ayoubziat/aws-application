@@ -17,5 +17,5 @@ public class UserDto {
     private String userName;
 //    private String userProfileImage;
     private String userEmail;
-    private Integer userAge;
+    private Integer age;
 }

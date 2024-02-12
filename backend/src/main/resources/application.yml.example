@@ -1,6 +1,8 @@
 server:
   error:
     include-message: always
+  servlet:
+    context-path: "/aws-app/v1"
 spring:
   application:
     name: "Spring Boot Application using some AWS services"

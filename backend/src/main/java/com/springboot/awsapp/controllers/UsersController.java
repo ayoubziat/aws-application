@@ -13,12 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("aws-app/v1/users")
+@RequestMapping("users")
 @AllArgsConstructor
 public class UsersController {
 
@@ -38,10 +37,10 @@ public class UsersController {
     }
 
     @GetMapping("{userId}")
-    public ResponseEntity<UserDto> getUser(@PathVariable("userId") UUID userId) {
+    public ResponseEntity<UserDto> getUser(@PathVariable("userId") String userId) {
         return ResponseEntity.ok(
                 mapper.boToDto(
-                        usersService.getUserById(userId)
+                        usersService.getUserById(UUID.fromString(userId))
                 )
         );
     }
@@ -78,11 +77,5 @@ public class UsersController {
         return ResponseEntity.ok(
                 usersService.downloadUserProfileImage(userId)
         );
-    }
-
-    @ExceptionHandler(NoSuchElementException.class)
-    public String handleNoSuchElementException(NoSuchElementException exc) {
-        System.out.println(exc.getMessage());
-        return exc.getMessage();
     }
 }

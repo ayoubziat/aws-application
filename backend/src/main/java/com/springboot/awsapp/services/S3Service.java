@@ -1,5 +1,9 @@
 package com.springboot.awsapp.services;
 
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.stereotype.Component;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import com.springboot.awsapp.configuration.S3Configuration;

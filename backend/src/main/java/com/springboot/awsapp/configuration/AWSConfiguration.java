@@ -1,6 +1,5 @@
 package com.springboot.awsapp.configuration;
 
-import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +9,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
 @Configuration
+@EnableConfigurationProperties(AWSProperties.class)
 public class AWSConfiguration {
 
     @Autowired

@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Null;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,6 +25,9 @@ import java.util.UUID;
 public class UserEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+
     private UUID userId;
 
     @Column(name = "username", nullable = false, columnDefinition = "TEXT")
@@ -38,7 +40,7 @@ public class UserEntity {
     private String userEmail;
 
     @Column(nullable = false)
-    private Integer userAge;
+    private Integer age;
 
     public Optional<String> getUserProfileImage() {
         return Optional.ofNullable(userProfileImage);
@@ -48,11 +50,11 @@ public class UserEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserEntity that)) return false;
-        return Objects.equals(getUserId(), that.getUserId()) && Objects.equals(getUserName(), that.getUserName()) && Objects.equals(getUserProfileImage(), that.getUserProfileImage()) && Objects.equals(getUserEmail(), that.getUserEmail()) && Objects.equals(getUserAge(), that.getUserAge());
+        return Objects.equals(getUserId(), that.getUserId()) && Objects.equals(getUserName(), that.getUserName()) && Objects.equals(getUserProfileImage(), that.getUserProfileImage()) && Objects.equals(getUserEmail(), that.getUserEmail()) && Objects.equals(getAge(), that.getAge());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUserId(), getUserName(), getUserProfileImage(), getUserEmail(), getUserAge());
+        return Objects.hash(getUserId(), getUserName(), getUserProfileImage(), getUserEmail(), getAge());
     }
 }
