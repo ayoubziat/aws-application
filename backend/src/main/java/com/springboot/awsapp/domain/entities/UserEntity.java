@@ -1,54 +1,58 @@
 package com.springboot.awsapp.domain.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Null;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "users")
+@Table(
+        name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "user_email_unique", columnNames = "user_email")
+        }
+)
 public class UserEntity {
 
     @Id
-    private final UUID userId;
+    private UUID userId;
 
-    private final String username;
+    @Column(name = "username", nullable = false, columnDefinition = "TEXT")
+    @NotEmpty(message = "UserName can not be empty or null")
+    private String userName;
 
-    private String userImageLink; // S3 key path
+    private String userProfileImage; // S3 key path
 
-//    public User(UUID userId, String username, String userImageLink) {
-//        this.userId = userId;
-//        this.username = username;
-//        this.userImageLink = userImageLink;
-//    }
+    @Column(name = "user_email", nullable = false, columnDefinition = "TEXT", unique = true)
+    private String userEmail;
 
-    public Optional<String> getUserImageLink() {
-        return Optional.ofNullable(userImageLink);
+    @Column(nullable = false)
+    private Integer userAge;
+
+    public Optional<String> getUserProfileImage() {
+        return Optional.ofNullable(userProfileImage);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserEntity that = (UserEntity) o;
-        return Objects.equals(userId, that.userId) &&
-                Objects.equals(username, that.username) &&
-                Objects.equals(userImageLink, that.userImageLink);
+        if (!(o instanceof UserEntity that)) return false;
+        return Objects.equals(getUserId(), that.getUserId()) && Objects.equals(getUserName(), that.getUserName()) && Objects.equals(getUserProfileImage(), that.getUserProfileImage()) && Objects.equals(getUserEmail(), that.getUserEmail()) && Objects.equals(getUserAge(), that.getUserAge());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, username, userImageLink);
+        return Objects.hash(getUserId(), getUserName(), getUserProfileImage(), getUserEmail(), getUserAge());
     }
 }

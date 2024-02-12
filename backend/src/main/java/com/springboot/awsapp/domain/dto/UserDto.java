@@ -9,11 +9,13 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @Builder
 public class UserDto {
 
-    private final UUID userId;
-    private final String username;
-    private String userImageLink;
+    private UUID userId = null;
+    private String userName;
+//    private String userProfileImage;
+    private String userEmail;
+    private Integer userAge;
 }

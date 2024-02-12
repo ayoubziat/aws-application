@@ -1,4 +1,4 @@
-package com.springboot.awsapp.service;
+package com.springboot.awsapp.services;
 
 import com.springboot.awsapp.domain.entities.UserEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +10,7 @@ public interface UsersService {
 
     List<UserEntity> getAllUsers();
     UserEntity getUserById(UUID userId);
-    void uploadUserImage(UUID userId, MultipartFile file);
-    byte[] downloadUserImage(UUID userId);
+    UserEntity uploadUserProfileImage(UUID userId, MultipartFile file);
+    byte[] downloadUserProfileImage(UUID userId);
+    UserEntity addUser(UserEntity userEntity);
 }

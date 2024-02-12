@@ -1,4 +1,4 @@
-package com.springboot.awsapp.resource;
+package com.springboot.awsapp.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;

@@ -1,4 +1,4 @@
-package com.springboot.awsapp.service;
+package com.springboot.awsapp.services;
 
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -10,7 +10,10 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -22,6 +25,11 @@ public class S3Service {
     private final S3Configuration s3Configuration;
 
     public void uploadFileToS3(String key, MultipartFile file, Optional<Map<String, String>> optionalMetaData) {
+        // convert the MultipartFile to a File which can be uploaded to S3
+        File s3File = convertMultiPartFileToFile(file);
+        if (s3File == null)
+            throw new IllegalStateException("MultipartFile can not be uploaded! Converting it to a file did not work");
+
         PutObjectRequest objectRequest = PutObjectRequest.builder()
                 .bucket(s3Configuration.getS3BucketName())
                 .key(key)
@@ -34,10 +42,11 @@ public class S3Service {
 //                    }
 //                }
 //        );
+
         try {
             s3Client.putObject(
                     objectRequest,
-                    RequestBody.fromFile(new File(file.toString()))
+                    RequestBody.fromFile(s3File)
             );
         }
         catch (S3Exception exc) {
@@ -62,5 +71,19 @@ public class S3Service {
 //            throw new RuntimeException(e);
 //        }
         return null;
+    }
+
+    private static File convertMultiPartFileToFile(MultipartFile multipartFile) {
+        File s3File = new File(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        try {
+            s3File.createNewFile();
+            FileOutputStream fos = new FileOutputStream(s3File);
+            fos.write(multipartFile.getBytes());
+            fos.close();
+        } catch (IOException e) {
+            System.out.println("IOException: "+ e);
+            return null;
+        }
+        return s3File;
     }
 }

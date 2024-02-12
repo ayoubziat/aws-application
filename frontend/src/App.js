@@ -9,7 +9,7 @@ const Users = () => {
   const [users, setUsers] = useState([]);
 
   const fetchUsers = () => {
-    axios.get("http://localhost:8080/api/v1/users").then(
+    axios.get("http://localhost:8080/aws-app/v1/users").then(
       response => {
         console.log(response);
         setUsers(response.data);
@@ -29,7 +29,7 @@ const Users = () => {
         {
           user.userId ? (
             <img 
-              src={`http://localhost:8080/api/v1/users/${user.userId}/image/download`}
+              src={`http://localhost:8080/aws-app/v1/users/${user.userId}/profileImage/download`}
             /> 
           ) : null
         }
@@ -52,7 +52,7 @@ function Dropzone({ userId }) {
     formData.append("file", file);
 
     axios.post(
-      `http://localhost:8080/api/v1/users/${userId}/image/upload`, 
+      `http://localhost:8080/aws-app/v1/users/${userId}/profileImage/upload`, 
       formData,
       {
         headers: {
